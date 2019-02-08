@@ -1,0 +1,49 @@
+<!doctype html>
+<head>
+	
+</head>
+<body>
+	<form method="get" id="form1">
+		<fieldset>
+			<label for="username">Username:</label>
+			<input type="text" name="username" id="username">
+		</fieldset>
+		<fieldset>
+			<label for="password">Password:</label>
+			<input type="password" name="password" id="password">
+		</fieldset>
+		<fieldset>
+			<label for="email" id="last">Email Address:</label>
+			<input type="email" name="email" id="email">
+		</fieldset>
+		<fieldset>
+			<!-- <input type="submit" id="me" name="Submit"><div> -->
+			<input type="reset" id="me2" name="Reset">
+		</fieldset>
+
+	</form>
+	<button id="click_me">Click Me</button><br>
+	<div id="display"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script lang="JavaScript" type="text/javascript">
+		jQuery(function($){
+			$("#click_me").click(function(){
+				var x=$("#form1").serialize();
+				$.post("process.php",x,function(result){
+						var res=JSON.parse(result);
+						$.each(res, function(index, value){
+							switch(index){
+								case "username":
+									$("#username").val(value)
+									break;
+								case "email":
+									$("#display").append("<br>Your username is: "+value)
+							}
+						})
+					})
+			})
+		})
+	</script>
+</body>
+
+</html>
